@@ -1,15 +1,15 @@
 <?php
 /**
- * Plugin Name:       Theme Customisations
+ * Plugin Name:       Woo Hidden Product
  * Description:       A handy little plugin to contain your theme customisation snippets.
  * Plugin URI:        http://github.com/woothemes/theme-customisations
  * Version:           1.0.0
- * Author:            WooThemes
+ * Author:            NicolaErario
  * Author URI:        https://www.woocommerce.com/
  * Requires at least: 3.0.0
  * Tested up to:      4.4.2
  *
- * @package Theme_Customisations
+ * @package Woo_hiddenproduct
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -17,31 +17,31 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Main Theme_Customisations Class
+ * Main Woo_hiddenproduct Class
  *
- * @class Theme_Customisations
+ * @class Woo_hiddenproduct
  * @version	1.0.0
  * @since 1.0.0
- * @package	Theme_Customisations
+ * @package	Woo_hiddenproduct
  */
-final class Theme_Customisations {
+final class Woo_hiddenproduct {
 
 	/**
 	 * Set up the plugin
 	 */
 	public function __construct() {
-		add_action( 'init', array( $this, 'theme_customisations_setup' ), -1 );
+		add_action( 'init', array( $this, 'Woo_hiddenproduct_setup' ), -1 );
 		require_once( 'custom/functions.php' );
 	}
 
 	/**
 	 * Setup all the things
 	 */
-	public function theme_customisations_setup() {
-		add_action( 'wp_enqueue_scripts', array( $this, 'theme_customisations_css' ), 999 );
-		add_action( 'wp_enqueue_scripts', array( $this, 'theme_customisations_js' ) );
-		add_filter( 'template_include',   array( $this, 'theme_customisations_template' ), 11 );
-		add_filter( 'wc_get_template',    array( $this, 'theme_customisations_wc_get_template' ), 11, 5 );
+	public function Woo_hiddenproduct_setup() {
+		add_action( 'wp_enqueue_scripts', array( $this, 'Woo_hiddenproduct_css' ), 999 );
+		add_action( 'wp_enqueue_scripts', array( $this, 'Woo_hiddenproduct_js' ) );
+		add_filter( 'template_include',   array( $this, 'Woo_hiddenproduct_template' ), 11 );
+		add_filter( 'wc_get_template',    array( $this, 'Woo_hiddenproduct_wc_get_template' ), 11, 5 );
 	}
 
 	/**
@@ -49,7 +49,7 @@ final class Theme_Customisations {
 	 *
 	 * @return void
 	 */
-	public function theme_customisations_css() {
+	public function Woo_hiddenproduct_css() {
 		wp_enqueue_style( 'custom-css', plugins_url( '/custom/style.css', __FILE__ ) );
 	}
 
@@ -58,7 +58,7 @@ final class Theme_Customisations {
 	 *
 	 * @return void
 	 */
-	public function theme_customisations_js() {
+	public function Woo_hiddenproduct_js() {
 		wp_enqueue_script( 'custom-js', plugins_url( '/custom/custom.js', __FILE__ ), array( 'jquery' ) );
 	}
 
@@ -72,7 +72,7 @@ final class Theme_Customisations {
 	 * @param  string $template template string.
 	 * @return string $template new template string.
 	 */
-	public function theme_customisations_template( $template ) {
+	public function Woo_hiddenproduct_template( $template ) {
 		if ( file_exists( untrailingslashit( plugin_dir_path( __FILE__ ) ) . '/custom/templates/' . basename( $template ) ) ) {
 			$template = untrailingslashit( plugin_dir_path( __FILE__ ) ) . '/custom/templates/' . basename( $template );
 		}
@@ -91,7 +91,7 @@ final class Theme_Customisations {
 	 * @return string $located is the newly located template if one was found, otherwise
 	 *                         it is the previously found template.
 	 */
-	public function theme_customisations_wc_get_template( $located, $template_name, $args, $template_path, $default_path ) {
+	public function Woo_hiddenproduct_wc_get_template( $located, $template_name, $args, $template_path, $default_path ) {
 		$plugin_template_path = untrailingslashit( plugin_dir_path( __FILE__ ) ) . '/custom/templates/woocommerce/' . $template_name;
 
 		if ( file_exists( $plugin_template_path ) ) {
@@ -107,11 +107,11 @@ final class Theme_Customisations {
  *
  * @return void
  */
-function theme_customisations_main() {
-	new Theme_Customisations();
+function Woo_hiddenproduct_main() {
+	new Woo_hiddenproduct();
 }
 
 /**
  * Initialise the plugin
  */
-add_action( 'plugins_loaded', 'theme_customisations_main' );
+add_action( 'plugins_loaded', 'Woo_hiddenproduct_main' );
