@@ -17,8 +17,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 
 // create the column and name it "Visibility"
-add_filter( 'manage_edit-product_columns', 'bdev_add_visibility_product_column', 10);
-function bdev_add_visibility_product_column($columns) {
+add_filter( 'manage_edit-product_columns', 'add_visibility_product_column', 10);
+function add_visibility_product_column($columns) {
 
 $new_columns = [];
 foreach( $columns as $key => $column ){
@@ -30,8 +30,8 @@ return $new_columns;
 }
 
 // add content based on catalog setting, hidden or public
-add_action( 'manage_product_posts_custom_column', 'bdev_add_visibility_product_column_content', 10, 2 );
-function bdev_add_visibility_product_column_content( $column, $product_id ){
+add_action( 'manage_product_posts_custom_column', 'add_visibility_product_column_content', 10, 2 );
+function add_visibility_product_column_content( $column, $product_id ){
 global $post;
 
 if( $column =='visibility' ) {
@@ -42,8 +42,8 @@ echo '<span style="color:green;">' . __("Visible") . '</span>';
 } }
 
 // make visibility column sortable for accessibility reasons
-add_filter( "manage_edit-product_sortable_columns", 'bdev_add_visibility_product_column_sortable' );
-function bdev_add_visibility_product_column_sortable( $columns )
+add_filter( "manage_edit-product_sortable_columns", 'add_visibility_product_column_sortable' );
+function add_visibility_product_column_sortable( $columns )
 {
 $custom = array(
 'visibility'    => 'Visibility',
